@@ -7,6 +7,7 @@ import logging
 import uuid
 import json
 import plantuml
+import base64
 from server.plantumlmodel import PlantUMLModel
 from server.api.utils.authentication import HTTPHeaderAuthentication
 from server.api.utils.interface import PlantumlGenerationQuery
@@ -60,8 +61,9 @@ async def health_check():
 
 def plantuml_to_base64(plantuml_code):
     plantuml_object = plantuml.PlantUML(url='http://www.plantuml.com/plantuml/img/')
-    base64_image = plantuml_object.processes(plantuml_code)
-    return base64_image
+    base64_bytes = plantuml_object.processes(plantuml_code)
+    base64_string = base64.b64encode(base64_bytes).decode('utf-8')
+    return base64_string
 
 
 def create_response(data):
