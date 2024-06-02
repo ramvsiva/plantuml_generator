@@ -6,6 +6,7 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 import re
 from dotenv import load_dotenv
+# Load environment variables
 load_dotenv()
 
 hf_token = os.getenv('hugging_face_token')
@@ -15,7 +16,20 @@ repo_name = 'ramvsivakumar/plantumlgenerator'
 
 
 class PlantUMLDataset(Dataset):
+  """
+    A PyTorch Dataset class that prepares data for language modeling training.
+    It encodes descriptions and corresponding PlantUML codes using a provided tokenizer.
+    """
     def __init__(self, descriptions, plantuml_codes, tokenizer, max_length):
+       """
+        Initializes the dataset with descriptions and PlantUML codes.
+
+        Parameters:
+            descriptions (list): List of description strings.
+            plantuml_codes (list): List of PlantUML code strings.
+            tokenizer: Instance of a tokenizer to encode the text.
+            max_length (int): Maximum length for the encoded output.
+        """
         self.inputs = [tokenizer.encode(desc + tokenizer.eos_token, max_length=max_length, truncation=True,
                                         padding="max_length", return_tensors="pt").squeeze(0) for desc in descriptions]
         self.targets = [tokenizer.encode(code + tokenizer.eos_token,
@@ -23,9 +37,19 @@ class PlantUMLDataset(Dataset):
                                          return_tensors="pt").squeeze(0) for code in plantuml_codes]
 
     def __len__(self):
+      """Returns the number of items in the dataset."""
         return len(self.inputs)
 
     def __getitem__(self, idx):
+       """
+        Retrieves an item by its index.
+
+        Parameters:
+            idx (int): The index of the item.
+
+        Returns:
+            dict: A dictionary with input ids and labels.
+        """
         return {"input_ids": self.inputs[idx], "labels": self.targets[idx]}
 
 
@@ -34,11 +58,22 @@ tokenizer.pad_token = tokenizer.eos_token
 model = GPT2LMHeadModel.from_pretrained(model_name)
 data_collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=False, return_tensors='pt')
 
+# Load dataset
 raw_df = pd.read_parquet('plantuml_dataset.parquet')
 
 
 def extract_data(df):
+ """
+    Extracts a substring between two markers, falling back to the next newline if 'end' not found.
 
+    Parameters:
+        text (str): Original text.
+        start (str): Start marker.
+        end (str): End marker.
+
+    Returns:
+        str: Extracted substring, stripped of leading and trailing whitespace.
+    """
     text_column_name = 'text'
     results = []
     use_case_id = ''
@@ -73,17 +108,18 @@ def extract_data(df):
 
     return pd.DataFrame(results)
 
-
+# Clean and prepare data
 df = extract_data(raw_df)
 df['Description'] = df['Description'].str.lstrip('-')
 df = df[(df['Description'].str.strip() != '') & (df['PlantUML_Code'].str.strip() != '')]
 
 
+# Split data into training and testing sets
 train_df, test_df = train_test_split(df, test_size=0.1)
 train_dataset = PlantUMLDataset(train_df['Description'].tolist(), train_df['PlantUML_Code'].tolist(), tokenizer, max_length=512)
 test_dataset = PlantUMLDataset(test_df['Description'].tolist(), test_df['PlantUML_Code'].tolist(), tokenizer, max_length=512)
 
-
+# Configure training arguments
 training_args = TrainingArguments(
     output_dir='./models',
     num_train_epochs=30,
@@ -103,6 +139,7 @@ training_args = TrainingArguments(
     hub_token=hf_token
 )
 
+# Initialize and start training
 trainer = Trainer(
     model=model,
     args=training_args,
@@ -114,5 +151,7 @@ trainer = Trainer(
 
 trainer.train()
 
+
+# Push the trained model and tokenizer to Hugging Face Hub
 model.push_to_hub(repo_name)
 tokenizer.push_to_hub(repo_name)
