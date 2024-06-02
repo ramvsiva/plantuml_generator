@@ -6,6 +6,9 @@ import {
 
 } from '../constants/umlConstants';
 
+/**
+ * Defines the initial state of the UML generation data within the Redux store.
+ */
 
 const initialState = {
       umlGenerationState: {
@@ -17,6 +20,12 @@ const initialState = {
     umlData: null
 };
 
+/**
+ * Reducer for handling UML generation actions.
+ * @param {Object} state - The current state of the UML generation.
+ * @param {Object} action - Action dispatched to the reducer.
+ * @returns {Object} - Updated state based on the action type.
+ */
 
 const umlReducer = (state = initialState, action) => {
       switch (action.type) {
