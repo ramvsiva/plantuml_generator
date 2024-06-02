@@ -10,10 +10,10 @@ const App = ({ umlGenerationState, umlData, generateUml }) => {
 
   useEffect(() => {
     if (umlGenerationState?.pending) {
-      setLoading(true); // Show loading spinner
+      setLoading(true);
     }
     if (umlGenerationState?.success && umlData) {
-      setLoading(false); // Hide loading spinner
+      setLoading(false);
       try {
         const contentType = 'image/jpeg';
         const blob = b64toBlob(umlData.payload, contentType);
@@ -23,7 +23,6 @@ const App = ({ umlGenerationState, umlData, generateUml }) => {
       } catch (e) {
         setUmlText(umlData.payload);
         setUmlImage(null);
-        console.log("umlData_!:", umlData);
       }
     }
   }, [umlGenerationState]);
