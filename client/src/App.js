@@ -2,11 +2,25 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import actions from './redux/actions/umlActions';
 
+/**
+ * A React functional component integrated with Redux to handle the generation and display of UML diagrams.
+ *
+ * Props:
+ *  - umlGenerationState: Object containing the state of UML generation (pending, success, etc.)
+ *  - umlData: Object containing the UML data payload if generation is successful.
+ *  - generateUml: Function to trigger the UML generation process.
+ */
+
 const App = ({ umlGenerationState, umlData, generateUml }) => {
   const [description, setDescription] = useState('');
   const [umlImage, setUmlImage] = useState();
   const [umlText, setUmlText] = useState();
   const [loading, setLoading] = useState(false);
+
+    /**
+   * Handles component updates based on changes in umlGenerationState.
+   * Updates loading state and processes the received UML data.
+   */
 
   useEffect(() => {
     if (umlGenerationState?.pending) {
@@ -27,6 +41,18 @@ const App = ({ umlGenerationState, umlData, generateUml }) => {
     }
   }, [umlGenerationState]);
 
+  /**
+   * Converts a base64 encoded string to a Blob object.
+   *
+   * Parameters:
+   *  - b64Data (string): Base64 encoded data.
+   *  - contentType (string): MIME type of the Blob.
+   *  - sliceSize (number): Size of the chunks to slice the decoded string into (defaults to 512).
+   *
+   * Returns:
+   *  - Blob: The created Blob object.
+   */
+
   const b64toBlob = (b64Data, contentType, sliceSize = 512) => {
     const byteCharacters = atob(b64Data);
     const byteArrays = [];
@@ -42,6 +68,9 @@ const App = ({ umlGenerationState, umlData, generateUml }) => {
     return new Blob(byteArrays, { type: contentType });
   };
 
+  /**
+   * Handles form submission to generate UML.
+   */
   const handleSubmit = () => {
     generateUml(description);
   };
