@@ -31,12 +31,11 @@ log.addHandler(stream_handler)
 
 load_dotenv()
 app = FastAPI()
-log.info('API creation complete..')
+log.info('API startup..')
 
 authentication = HTTPHeaderAuthentication()
 
-model_name = 'ramvsivakumar/plantumlgenerator'
-plantuml_model = PlantUMLModel(model_name=model_name)
+plantuml_model = PlantUMLModel(model_name=os.getenv('hugging_face_id'))
 
 
 @app.get("/health", dependencies=[Depends(authentication)])
