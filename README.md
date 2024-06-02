@@ -93,9 +93,9 @@ This script is responsible for training the GPT-2 model using a dataset of UML d
 
 The client contains a React App, including Redux and middleware configurations, to send requests to the server and display the image. If there is no UML diagram in the response, text is displayed instead.
 #### Setup
-1) Ensure Node.js installed.
-2) add environment variables for the REACT_APP_SERVER_BASE_URL and same X_API_KEY defined in server
+1) Ensure `Node.js` installed.
+2) add environment variables for the `REACT_APP_SERVER_BASE_URL` and same `X_API_KEY` defined in server
 3) Install necessary JavaScript packages by using the command
-   "npm i"
+   `"npm i"`
 after navigating in to the folder
 
