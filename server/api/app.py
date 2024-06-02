@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Depends, Response
+from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 import logging
 import uuid
@@ -31,6 +32,20 @@ log.addHandler(stream_handler)
 
 load_dotenv()
 app = FastAPI()
+
+
+with open('utils/allowedOrigins.json', 'r') as file:
+    data = json.load(file)
+    origins = data['allowedOrigins']
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 log.info('API startup..')
 
 authentication = HTTPHeaderAuthentication()
