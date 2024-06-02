@@ -56,7 +56,7 @@ The dataset to be used for this project can be found on Hugging Face:
 ## Overview
 This project is composed of a server and a client to generate PlantUML diagrams from textual descriptions using a GPT-2 machine learning model. It features a FastAPI server for handling API requests, a model for generating the diagrams, and a training script for improving the model's accuracy. A React frontend that accepts user input for PlantUML and displays the resulting UML diagram as an image.
 
-## server
+## Server
 
 ### `server/api/app.py`
 
@@ -89,10 +89,7 @@ This script is responsible for training the GPT-2 model using a dataset of UML d
 - **Model Training**: Manages the training process including evaluations, logging, and saving the model.
 - **Push to Hub**: After training, the model and tokenizer are pushed to the Hugging Face Model Hub for accessibility.
 
-## client
-
-Install necessary Python packages for LLM training and FastAPI backend.
-Install necessary JavaScript packages for ReactJS/NextJS frontend.
+## Client
 
 The client contains a React App, including Redux and middleware configurations, to send requests to the server and display the image. If there is no UML diagram in the response, text is displayed instead.
 #### Setup
