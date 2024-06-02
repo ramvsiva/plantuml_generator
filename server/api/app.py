@@ -100,7 +100,7 @@ def create_response(data):
 
 @app.post("/uml/generator/", dependencies=[Depends(authentication)])
 async def process_image_endpoint(query: PlantumlGenerationQuery) -> Response:
-     """
+    """
     Endpoint to generate UML diagrams from descriptions.
 
     Parameters:

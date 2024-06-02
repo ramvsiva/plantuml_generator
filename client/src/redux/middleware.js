@@ -10,6 +10,8 @@ import axios from "axios";
  * @returns {Function} - Returns a function that handles the next middleware in the chain.
  */
 
+const X_API_Key = process.env.X_API_Key
+
 const apiMiddleware = store => next => action => {
   // Check if the action should be processed by this middleware
   if (!action.apiPackage) return next(action);
@@ -30,7 +32,7 @@ const apiMiddleware = store => next => action => {
     data: body || null,
     params: query,
     responseType: responseType || null,
-    headers: { 'X-API-Key': "VGT-LOI-8713", ...headers },
+    headers: { 'X-API-Key': X_API_Key, ...headers },
   })
     .then(res => {
       const { apiPackage, ...restAction } = action;

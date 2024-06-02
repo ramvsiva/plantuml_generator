@@ -17,7 +17,7 @@ class PlantUMLModel:
         self.tokenizer.pad_token = self.tokenizer.eos_token
 
     def generate(self, input_text, max_new_tokens=1024):
-                """
+        """
         Generates text continuation for a given input text up to a specified number of new tokens.
 
         Parameters:
@@ -40,7 +40,7 @@ class PlantUMLModel:
         if max_length > self.model.config.max_position_embeddings:
             max_length = self.model.config.max_position_embeddings
 
-         # Generate text using the model, without updating gradients
+        # Generate text using the model, without updating gradients
         with torch.no_grad():
             output_ids = self.model.generate(
                 input_ids=input_ids,
@@ -52,7 +52,6 @@ class PlantUMLModel:
                 pad_token_id=self.tokenizer.eos_token_id,
                 num_return_sequences=1
             )
-
 
         # Decode the output tokens to a string and return
         output_text = self.tokenizer.decode(output_ids[0], skip_special_tokens=True)

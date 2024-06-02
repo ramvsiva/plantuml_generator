@@ -16,12 +16,12 @@ repo_name = 'ramvsivakumar/plantumlgenerator'
 
 
 class PlantUMLDataset(Dataset):
-  """
+    """
     A PyTorch Dataset class that prepares data for language modeling training.
     It encodes descriptions and corresponding PlantUML codes using a provided tokenizer.
     """
     def __init__(self, descriptions, plantuml_codes, tokenizer, max_length):
-       """
+        """
         Initializes the dataset with descriptions and PlantUML codes.
 
         Parameters:
@@ -37,11 +37,11 @@ class PlantUMLDataset(Dataset):
                                          return_tensors="pt").squeeze(0) for code in plantuml_codes]
 
     def __len__(self):
-      """Returns the number of items in the dataset."""
+        """Returns the number of items in the dataset."""
         return len(self.inputs)
 
     def __getitem__(self, idx):
-       """
+        """
         Retrieves an item by its index.
 
         Parameters:
@@ -63,7 +63,7 @@ raw_df = pd.read_parquet('plantuml_dataset.parquet')
 
 
 def extract_data(df):
- """
+    """
     Extracts a substring between two markers, falling back to the next newline if 'end' not found.
 
     Parameters:
@@ -107,6 +107,7 @@ def extract_data(df):
         })
 
     return pd.DataFrame(results)
+
 
 # Clean and prepare data
 df = extract_data(raw_df)
