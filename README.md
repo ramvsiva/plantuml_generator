@@ -98,6 +98,6 @@ The client contains a React App, including Redux and middleware configurations, 
 #### Setup
 1) Ensure Node.js installed.
 2) Install necessary JavaScript packages by using the command
-   npm i
+   "npm i"
 after navigating in to the folder
 
