@@ -63,3 +63,41 @@ The dataset to be used for this project can be found on Hugging Face:
 We look forward to seeing your innovative solutions and welcoming you to the DIAS Project team!
 
 **Good luck!**
+
+
+
+## server/api/app.py
+
+### Description
+This file implements a FastAPI application that provides a RESTful API to generate PlantUML diagrams. It uses authentication to secure endpoints and logs significant events to help in debugging and monitoring.
+
+### Main Tasks
+- **Load Environment Variables**: Utilizes `dotenv` to manage sensitive information securely.
+- **Configure Logging**: Sets up logging for different levels and formats to capture runtime information.
+- **FastAPI Setup**: Initializes and configures a FastAPI application to handle incoming HTTP requests.
+- **Endpoints**:
+  - `/health`: A simple health check to confirm the API is operational.
+  - `/uml/generator/`: Receives descriptions, generates UML diagrams using a GPT-2 model, and returns the diagrams as base64 images.
+
+
+### `server/plantumlmodel.py`
+
+### Description
+Defines the `PlantUMLModel` class, which interacts with a pre-trained GPT-2 model to generate UML diagrams based on textual descriptions. It ensures that the model and tokenizer are appropriately initialized and used for generating outputs.
+
+### Main Tasks
+- **Model Initialization**: Loads the GPT-2 model and tokenizer.
+- **Generate UML**: Provides a function to process text into UML diagrams by managing the input preparation, model invocation, and output decoding.
+
+
+### `server/training.py`
+
+
+### Description
+This script is responsible for training the GPT-2 model using a dataset of UML diagrams and descriptions. It includes data preprocessing, setting up the training environment, executing the training loop, and pushing the trained model to the Hugging Face Hub.
+
+### Main Tasks
+- **Data Preprocessing**: Extracts and prepares training and validation datasets from a `.parquet` file.
+- **Training Setup**: Configures training parameters, the model, and the tokenizer for training.
+- **Model Training**: Manages the training process including evaluations, logging, and saving the model.
+- **Push to Hub**: After training, the model and tokenizer are pushed to the Hugging Face Model Hub for accessibility.
