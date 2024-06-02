@@ -1,0 +1,11 @@
+torch
+transformers
+pandas
+sklearn
+python-dotenv
+fastapi
+uvicorn
+starlette
+pydantic
+base64
+plantuml
