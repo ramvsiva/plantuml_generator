@@ -1,4 +1,4 @@
-# AI Engineer / Prompt Engineer
+# TASK DESCRIPTION
 
 Welcome to the repo! This document outlines the tasks and requirements for candidates applying for a position in our team. Below, you'll find detailed descriptions of the job responsibilities, the dataset to be used, and the tasks to be completed as part of the recruitment process.
 
@@ -27,42 +27,27 @@ The dataset to be used for this project can be found on Hugging Face:
 
 ## Getting Started
 
-1. **Clone/Fork the repository**:
-    ```bash
-    git clone <repository-url>
-    cd <repository-directory>
-    ```
-
-2. **Set up the environment**:
+1. **Set up the environment**:
     - Ensure you have Python and Node.js installed.
     - Install necessary Python packages for LLM training and FastAPI backend.
     - Install necessary JavaScript packages for ReactJS/NextJS frontend.
       
-3. **Access the dataset**:
+2. **Access the dataset**:
     - Download the dataset from [Hugging Face](https://huggingface.co/datasets/coai/plantuml_generation) and prepare it for model training.
 
-4. **Begin with Task 1**:
+3. **Begin with Task 1**:
     - Train the LLM on Google Colab.
     - Upload the weights to HuggingFace under own profile.
     - Save the trained model for use in the backend service.
 
-5. **Develop the Backend**:
+4. **Develop the Backend**:
     - Create a FastAPI service that uses the trained LLM to generate PlantUML code.
     - Implement functionality to convert PlantUML code into images.
 
-6. **Develop the Frontend**:
+5. **Develop the Frontend**:
     - Build a ReactJS/NextJS application that interacts with the backend.
     - Ensure the frontend can display the generated PlantUML diagrams based on user input.
 
-## Submission
-
-- Ensure all code is well-documented and follows best practices.
-- Create a detailed report explaining your approach, challenges faced, and how you overcame them. Let it be brief.
-- Submit your final code and report by providing us the links to your repositories. The links to the weights on the HuggingFace should also be present in your report.
-
-We look forward to seeing your innovative solutions and welcoming you to the DIAS Project team!
-
-**Good luck!**
 
 
 
