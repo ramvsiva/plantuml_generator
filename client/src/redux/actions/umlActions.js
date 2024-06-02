@@ -8,8 +8,7 @@ const generateUml = (description) => ({
   type: UML_GENERATION,
   apiPackage: {
     method: 'POST',
-    parameters: `http://52.57.216.207:8070/uml/generator/`,
-    // parameters: `${baseUrl}/uml/generator/`,
+    parameters: `${baseUrl}/uml/generator/`,
     body: { description: description }
   }
 });
